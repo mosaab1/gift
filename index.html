@@ -137,8 +137,8 @@
         <div class="row mb-3">
             <!-- Input Text Area (60% width) -->
             <div class="col-md-7">
-                <label for="richTextInput" class="form-label"><i class="fas fa-edit"></i> Enter your questions here:</label>
-                <textarea id="richTextInput" class="form-control" rows="10"></textarea>
+                <label for="richTextInput" class="form-label"><i class="fas fa-edit"></i> <span class="fw-bold fs-5">Enter your questions here:</span></label>
+                <textarea id="richTextInput" class="form-control" rows="11"></textarea>
             </div>
 
             <!-- Formatting Instructions (40% width) -->
@@ -162,9 +162,20 @@
         <button id="proceedButton" class="btn btn-custom"><i class="fas fa-play-circle"></i> Proceed</button>
 
         <!-- Output Result -->
-        <div class="mb-3 mt-4">
-            <label for="resultDisplay" class="form-label"><i class="fas fa-file-code"></i> Your GIFT format:</label>
-            <textarea id="resultDisplay" class="form-control" rows="8" readonly></textarea>
+         <div class="row">
+        <div class="col-md-7 mt-4">
+            <label for="resultDisplay" class="form-label"><i class="fas fa-file-code"></i> <span class="fw-bold fs-5">Your GIFT format:</span></label>
+            <textarea id="resultDisplay" class="form-control" rows="10" readonly></textarea>
+        </div>
+        <div class="col-md-5 mt-4">
+            <i class="fa-solid fa-video"></i> <span class="fw-bold fs-6">Video Tutorials:</span>
+            <div class="embed-responsive">
+                <video class="w-100" controls>
+                  <source src="https://mosaab1.github.io/gift/gift.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+        </div>
         </div>
     </div>
 <script>
