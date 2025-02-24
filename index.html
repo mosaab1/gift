@@ -200,7 +200,7 @@
                     input.value = "";
                 });
             }
-
+    
             // Setup autocomplete and local storage listeners
             setupAutocomplete(".category-input", "categories");
             setupAutocomplete(".tag-input", "tags");
@@ -209,9 +209,9 @@
             setupAutocomplete("#instructionsClassInput", "instructionsClass");
             setupAutocomplete("#questionClassInput", "questionClass");
             setupAutocomplete("#optionClassInput", "optionClass");
-
+    
             setupLocalStorageListeners();
-
+    
             // Process GIFT format on button click
             document.getElementById('proceedButton').addEventListener('click', function () {
                 let questionName = document.getElementById('questionNameInput').value.trim();
@@ -223,48 +223,52 @@
                 const instructionsClass = document.getElementById('instructionsClassInput').value.trim();
                 const questionClass = document.getElementById('questionClassInput').value.trim();
                 const optionClass = document.getElementById('optionClassInput').value.trim();
-
+    
                 let giftText = "";
                 let questionNumber = 1;
                 const now = new Date();
                 const dateTimeString = now.toISOString().split("T")[0];
-
+    
                 let categoryString = `$CATEGORY: $course$/top/`;
                 categoryString += categories.length ? categories.join('/') + ' ' + dateTimeString + '\n\n' : dateTimeString + '\n\n';
                 giftText += categoryString;
-
+    
                 questions.forEach(question => {
                     const lines = question.split('\n');
                     let questionLine = lines[0].trim().replace(/^\d+\.?\s*/, '');
-                    const options = lines.slice(1).map(line => line.trim().replace(/^(?:[^\d\w]\s*|\w+\.\s*)/, '')).filter(line => line);
-
+                    let options = lines.slice(1).map(line => line.trim().replace(/^(?:[^\d\w]\s*|\w+\.\s*)/, '')).filter(line => line);
+    
+                    // Identify the correct answer (always the first option before shuffling)
+                    let correctAnswer = options.length > 0 ? options[0] : "";
+    
                     // Shuffle options
                     for (let i = options.length - 1; i > 0; i--) {
                         const j = Math.floor(Math.random() * (i + 1));
                         [options[i], options[j]] = [options[j], options[i]];
                     }
-
+    
                     const formattedQuestionNumber = String(questionNumber).padStart(2, '0');
-                    const correctAnswer = options[0];
-
+    
                     if (tags.length) {
                         giftText += "// " + tags.map(tag => `[tag:${tag}]`).join(" ") + "\n";
                     }
-
+    
                     giftText += `::${questionName}_Q${formattedQuestionNumber}[${correctAnswer}]::`;
                     if (questionDescription) {
                         giftText += `<p class\\="${instructionsClass}">${questionDescription}</p>`;
                     }
                     giftText += `<p class\\="${questionClass}">${questionLine}</p> {\n`;
+    
                     options.forEach(option => {
                         giftText += option === correctAnswer ? `=<p class\\="${optionClass}">${option}</p>\n` : `~<p class\\="${optionClass}">${option}</p>\n`;
                     });
+    
                     giftText += "}\n\n";
                     questionNumber++;
                 });
-
+    
                 document.getElementById('resultDisplay').value = giftText.trim();
-
+    
                 // Handle file saving
                 if (!questionName) {
                     questionName = prompt("Please enter a file name:", "my_questions");
@@ -273,7 +277,7 @@
                         return;
                     }
                 }
-
+    
                 const blob = new Blob([giftText.trim()], { type: "text/plain" });
                 const link = document.createElement("a");
                 link.href = URL.createObjectURL(blob);
@@ -283,7 +287,7 @@
                 document.body.removeChild(link);
             });
         });
-
+    
         // Setup local storage listeners for input fields
         function setupLocalStorageListeners() {
             setupLocalStorageListener(".category-input", "categories");
@@ -294,7 +298,7 @@
             setupLocalStorageListener("#questionClassInput", "questionClass");
             setupLocalStorageListener("#optionClassInput", "optionClass");
         }
-
+    
         // Setup local storage listener for a specific input field
         function setupLocalStorageListener(inputSelector, storageKey) {
             document.querySelectorAll(inputSelector).forEach(input => {
@@ -307,17 +311,17 @@
                 });
             });
         }
-
+    
         // Setup autocomplete for a specific input field
         function setupAutocomplete(inputSelector, storageKey) {
             const storedValues = JSON.parse(localStorage.getItem(storageKey) || "[]");
             if (storedValues.length === 0) return;
-
+    
             let datalist = document.createElement("datalist");
             datalist.id = `${storageKey}-datalist`;
             datalist.innerHTML = storedValues.map(v => `<option value="${v}">`).join("");
             document.body.appendChild(datalist);
-
+    
             document.querySelectorAll(inputSelector).forEach(input => {
                 input.setAttribute("list", datalist.id);
             });
