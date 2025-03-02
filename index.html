@@ -94,15 +94,21 @@
 
         <div class="row mb-3">
             <label class="col-auto col-form-label"><i class="fas fa-question-circle"></i> Question Name:</label>
-            <div class="col-4">
+            <div class="col-md-3">
                 <input type="text" id="questionNameInput" class="form-control form-control-sm">
                 <div class="explanation-text">Example: 6th_Voc_EX3</div>
             </div>
+            <label class="col-auto col-form-label"><i class="fas fa-file-alt"></i> Question Name Extension:</label>
+            <div class="col-md-4">
+                <input type="text" id="questionNameExtensionInput" class="form-control form-control-sm">
+                <div class="explanation-text">Example: The correct answer is...</div>
+            </div>
             <label class="col-auto col-form-label"><i class="fas fa-file-alt"></i> Question Description:</label>
-            <div class="col-4">
+            <div class="col-md-4">
                 <input type="text" id="questionDescriptionInput" class="form-control form-control-sm">
                 <div class="explanation-text">Example: Choose the right sentence.</div>
             </div>
+
         </div>
 
         <div class="row mb-3">
@@ -219,6 +225,7 @@
             // Process GIFT format on button click
             document.getElementById('proceedButton').addEventListener('click', function () {
                 let questionName = document.getElementById('questionNameInput').value.trim();
+                let questionNameExtension = document.getElementById('questionNameExtensionInput').value.trim();
                 let questionDescription = document.getElementById('questionDescriptionInput').value.trim();
                 const inputText = document.getElementById('richTextInput').value;
                 const questions = inputText.split(/\n(?=\d+\.)/);
@@ -258,7 +265,7 @@
                         giftText += "// " + tags.map(tag => `[tag:${tag}]`).join(" ") + "\n";
                     }
     
-                    giftText += `::${questionName}_Q${formattedQuestionNumber}[${correctAnswer}]::`;
+                    giftText += `::${questionName}${questionNameExtension}_Q${formattedQuestionNumber}[${correctAnswer}]::`;
                     if (questionDescription) {
                         giftText += `<p class\\="${instructionsClass}">${questionDescription}</p>`;
                     }
