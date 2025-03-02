@@ -72,15 +72,19 @@
             <label class="col-auto col-form-label"><i class="fas fa-folder"></i> Category:</label>
             <div class="col">
                 <div class="row">
-                    <div class="col-sm-4 mb-2">
+                    <div class="col-sm-3 mb-2">
                         <input type="text" class="form-control form-control-sm category-input">
                         <div class="explanation-text">Example: Vocabulary 6</div>
                     </div>
-                    <div class="col-sm-4 mb-2">
+                    <div class="col-sm-3 mb-2">
                         <input type="text" class="form-control form-control-sm category-input">
                         <div class="explanation-text">Example: Feeling Good</div>
                     </div>
-                    <div class="col-sm-4 mb-2">
+                    <div class="col-sm-3 mb-2">
+                        <input type="text" class="form-control form-control-sm category-input">
+                        <div class="explanation-text">Example: Body&Health</div>
+                    </div>
+                    <div class="col-sm-3 mb-2">
                         <input type="text" class="form-control form-control-sm category-input">
                         <div class="explanation-text">Example: EX3 Body&Health (MC)</div>
                     </div>
@@ -179,7 +183,7 @@
         <div class="row">
             <div class="col-md-7 mt-4">
                 <label for="resultDisplay" class="form-label"><i class="fas fa-file-code"></i> <span class="fw-bold fs-5">Your GIFT format:</span></label>
-                <textarea id="resultDisplay" class="form-control" rows="" readonly></textarea>
+                <textarea id="resultDisplay" class="form-control" rows="11" readonly></textarea>
             </div>
             <div class="col-md-5 mt-4">
                 <i class="fa-solid fa-video"></i> <span class="fw-bold fs-6">Video Tutorials:</span>
@@ -227,7 +231,8 @@
                 let giftText = "";
                 let questionNumber = 1;
                 const now = new Date();
-                const dateTimeString = now.toISOString().split("T")[0];
+                const dateTimeString = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}`;
+
     
                 let categoryString = `$CATEGORY: $course$/top/`;
                 categoryString += categories.length ? categories.join('/') + ' ' + dateTimeString + '\n\n' : dateTimeString + '\n\n';
