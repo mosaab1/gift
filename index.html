@@ -265,7 +265,7 @@
                         giftText += "// " + tags.map(tag => `[tag:${tag}]`).join(" ") + "\n";
                     }
     
-                    giftText += `::${questionName}_Q ${formattedQuestionNumber} ${questionNameExtension}[${correctAnswer}]::`;
+                    giftText += `::${questionName}_Q${formattedQuestionNumber} ${questionNameExtension}[${correctAnswer}]::`;
                     if (questionDescription) {
                         giftText += `<p class\\="${instructionsClass}">${questionDescription}</p>`;
                     }
